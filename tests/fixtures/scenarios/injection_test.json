@@ -1,0 +1,9 @@
+{
+  "name": "injection_test",
+  "description": "Scenario with prompt injection attempts in event data to test security",
+  "events_file": "injection_test_events.json",
+  "expected": {
+    "security_warnings_present": true,
+    "min_warnings": 1
+  }
+}

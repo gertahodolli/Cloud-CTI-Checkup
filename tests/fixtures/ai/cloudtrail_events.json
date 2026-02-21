@@ -1,0 +1,120 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEID",
+        "arn": "arn:aws:iam::123456789012:user/alice",
+        "accountId": "123456789012",
+        "userName": "alice"
+      },
+      "eventTime": "2026-02-03T10:00:00Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "ListBuckets",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "requestParameters": null,
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEID",
+        "arn": "arn:aws:iam::123456789012:user/alice",
+        "accountId": "123456789012",
+        "userName": "alice"
+      },
+      "eventTime": "2026-02-03T10:01:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListUsers",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "requestParameters": null,
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLEID",
+        "arn": "arn:aws:iam::123456789012:user/alice",
+        "accountId": "123456789012",
+        "userName": "alice"
+      },
+      "eventTime": "2026-02-03T10:02:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "errorCode": "AccessDenied",
+      "errorMessage": "User: arn:aws:iam::123456789012:user/alice is not authorized",
+      "requestParameters": {
+        "userName": "admin"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLEID:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/AdminRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T10:15:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachRolePolicy",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "roleName": "LambdaExecutionRole",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLEID:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/AdminRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T10:16:00Z",
+      "eventSource": "secretsmanager.amazonaws.com",
+      "eventName": "GetSecretValue",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "secretId": "prod/database/credentials"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLEID:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/AdminRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T10:17:00Z",
+      "eventSource": "s3.amazonaws.com",
+      "eventName": "DeleteBucket",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "bucketName": "company-backups"
+      },
+      "responseElements": null
+    }
+  ]
+}

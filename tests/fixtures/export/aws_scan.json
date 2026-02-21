@@ -1,0 +1,38 @@
+{
+  "provider": "aws",
+  "account_id": "123456789012",
+  "regions": ["us-east-1"],
+  "checks": [],
+  "findings": [
+    {
+      "service": "s3",
+      "resource_type": "bucket",
+      "resource_id": "public-bucket",
+      "issue": "s3_public",
+      "severity": "high",
+      "status": "finding",
+      "evidence": {
+        "event_source": "s3.amazonaws.com"
+      }
+    },
+    {
+      "service": "iam",
+      "resource_type": "user",
+      "resource_id": "alice",
+      "issue": "mfa_not_enabled",
+      "severity": "high",
+      "status": "finding",
+      "evidence": {}
+    }
+  ],
+  "summary": {
+    "high": 2,
+    "medium": 0,
+    "low": 0,
+    "info": 0,
+    "skipped": 0,
+    "errors": 0
+  },
+  "partial_failure": false,
+  "fatal_error": false
+}

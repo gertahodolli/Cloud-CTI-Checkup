@@ -1,0 +1,28 @@
+# CTI-Checkup local configuration
+# Minimal config to get intel commands working
+
+# AWS scan settings
+aws:
+  regions:
+    - us-east-1
+  enabled_services:
+    - s3
+    - iam
+    - ec2
+
+# Threat intel settings (REQUIRED for intel ip/domain commands)
+intel:
+  timeout_seconds: 30
+  retry:
+    max_attempts: 3
+    backoff_seconds: 2
+
+# Risk scoring
+risk_scoring:
+  cap: 100
+  weights:
+    critical: 50   # Widely detected malware (10+ VT detections)
+    high: 15
+    medium: 5
+    low: 1
+    info: 0

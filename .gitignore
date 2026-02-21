@@ -1,0 +1,100 @@
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+ENV/
+env/
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =============================================================================
+# Environment & Secrets (NEVER commit these)
+# =============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+secrets.yaml
+# User secrets (optional fallback; project .env is primary)
+# .cti-checkup/ is in user home, not repo; no pattern needed
+
+# =============================================================================
+# IDE & Editor
+# =============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# =============================================================================
+# Node.js (for frontend)
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# =============================================================================
+# Testing & Coverage
+# =============================================================================
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# =============================================================================
+# Build artifacts
+# =============================================================================
+*.log
+*.tmp
+*.temp
+.cache/
+
+# =============================================================================
+# GitHub (workflows, etc.)
+# =============================================================================
+.github/
+
+# =============================================================================
+# CTI-Checkup specific
+# =============================================================================
+runs/
+*.json.bak
+ui_config.json
+frontend/ui_config.json
+
+# Exception: frontend/server is app code (Node API), not Python/build paths
+!frontend/server/
+!frontend/server/**

@@ -1,0 +1,196 @@
+export:
+  detections:
+    enabled: true
+    formats:
+      enabled:
+        - sigma
+        - splunk
+        - kql
+        - cloudwatch
+    templates_dir: cti_checkup/export/templates
+    cloudtrail:
+      min_actor_score: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_MIN_ACTOR_SCORE}
+      mode: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_MODE}
+    iam:
+      min_identity_score: ${CTICHECKUP_EXPORT_DETECTIONS_IAM_MIN_IDENTITY_SCORE}
+    mappings:
+      aws_scan:
+        by_check_id:
+          public_access_enabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          s3_public:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          list_buckets_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          default_encryption_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          missing_allowed_sse_algorithms_config:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          default_encryption_not_configured:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          default_encryption_algorithm_not_allowed:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          default_encryption_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          versioning_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          versioning_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          versioning_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          server_access_logging_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          server_access_logging_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          logging_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: s3.amazonaws.com
+          list_users_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          mfa_not_enabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          mfa_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          access_key_older_than_threshold:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          access_key_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          root_mfa_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          root_mfa_check_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          root_mfa_not_enabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          admin_policy_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          admin_policy_wildcards_detected:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          policy_read_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          inline_policy_read_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          risky_policy_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          policy_allow_not_action:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          policy_allow_not_resource:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          policy_privilege_escalation_action:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          missing_max_unused_days_config:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          access_key_last_used_lookup_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          access_key_never_used:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          access_key_unused_over_threshold:
+            template: aws_scan.tpl
+            fields:
+              event_source: iam.amazonaws.com
+          missing_sensitive_ports_config:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          describe_security_groups_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          security_group_all_ports_open_to_world:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          security_group_sensitive_port_open_to_world:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          unused_sg_check_disabled:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          describe_network_interfaces_failed:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+          security_group_unused:
+            template: aws_scan.tpl
+            fields:
+              event_source: ec2.amazonaws.com
+      cloudtrail_correlation:
+        actor_rule:
+          template: cloudtrail_actor.tpl
+          fields:
+            ip_field: ip
+            ua_field: evidence.user_agents
+            identity_field: identity
+            event_names_field: event_stats.top_events
+      iam_identities:
+        identity_rule:
+          template: iam_identity.tpl
+          fields:
+            identity_field: identity
+            risk_factors_field: risk_factors

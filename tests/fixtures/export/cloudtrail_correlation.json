@@ -1,0 +1,37 @@
+{
+  "input": {
+    "source": "cloudtrail.json",
+    "processed_events": 2,
+    "total_events": 2
+  },
+  "actors": [
+    {
+      "actor": "alice",
+      "ip": "1.2.3.4",
+      "identity": "arn:aws:iam::123456789012:user/alice",
+      "score": 70,
+      "event_stats": {
+        "top_events": [
+          {"name": "DeleteBucket", "count": 1}
+        ]
+      },
+      "evidence": {
+        "user_agents": ["aws-cli/2.0"]
+      }
+    },
+    {
+      "actor": "bob",
+      "ip": "5.6.7.8",
+      "identity": "arn:aws:iam::123456789012:user/bob",
+      "score": 10,
+      "event_stats": {
+        "top_events": [
+          {"name": "ListBuckets", "count": 1}
+        ]
+      },
+      "evidence": {
+        "user_agents": ["console"]
+      }
+    }
+  ]
+}

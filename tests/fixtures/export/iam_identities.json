@@ -1,0 +1,32 @@
+{
+  "identities": [
+    {
+      "identity": "alice",
+      "type": "user",
+      "risk_score": 80,
+      "risk_factors": ["no_mfa", "old_keys"],
+      "counts": {
+        "no_mfa": 1,
+        "old_keys": 1,
+        "admin_policies": 0,
+        "risky_policies": 0
+      }
+    },
+    {
+      "identity": "bob",
+      "type": "user",
+      "risk_score": 10,
+      "risk_factors": ["old_keys"],
+      "counts": {
+        "no_mfa": 0,
+        "old_keys": 1,
+        "admin_policies": 0,
+        "risky_policies": 0
+      }
+    }
+  ],
+  "summary": {
+    "total_identities": 2,
+    "top_n": 10
+  }
+}

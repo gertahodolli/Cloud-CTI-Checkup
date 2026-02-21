@@ -1,0 +1,78 @@
+# Local AI configuration example
+# Copy this file and set your API key in the environment variable
+
+ai:
+  enabled: true
+  provider: openai
+  model: gpt-4o
+  base_url: https://api.openai.com/v1
+  timeout_seconds: 120
+  temperature: 0.3
+  max_tokens: 4096
+  max_input_events: 50000
+
+  summarize:
+    cloudtrail:
+      top_n_actors: 10
+      top_n_events: 20
+      max_resources: 50
+
+  redaction:
+    enabled: true
+    fields:
+      - accessKeyId
+      - userName
+      - sessionContext.sessionIssuer.userName
+
+# Required environment variable:
+# CTICHECKUP_AI_OPENAI_API_KEY=sk-your-api-key-here
+
+# Intel configuration for IP enrichment (optional but recommended)
+intel:
+  timeout_seconds: 10
+  retry:
+    max_attempts: 3
+    backoff_seconds: 1
+  cloud_attribution:
+    enabled: true
+    providers:
+      aws:
+        asn_numbers: "16509,14618"
+        org_contains: "Amazon,AWS"
+        hostname_contains: "amazonaws.com,aws"
+      azure:
+        asn_numbers: "8075"
+        org_contains: "Microsoft"
+        hostname_contains: "azure,microsoft"
+      gcp:
+        asn_numbers: "15169"
+        org_contains: "Google"
+        hostname_contains: "google"
+    confidence_weights:
+      asn_match: 40
+      org_match: 30
+      hostname_match: 20
+      privacy_hosting: 10
+  correlation:
+    cloudtrail:
+      enabled: true
+      ip_field: sourceIPAddress
+      ua_field: userAgent
+      identity_field: userIdentity.arn
+      event_name_field: eventName
+      max_events: 10000
+      max_indicators: 50
+      scoring:
+        weights:
+          event_count: 1
+          unique_event_count: 2
+          abuse_confidence: 1
+          hosting: 5
+          intel_risk_score: 1
+        rules:
+          - field: event_name
+            match: contains
+            value: Delete
+            score: 10
+            per_event: false
+            case_sensitive: false

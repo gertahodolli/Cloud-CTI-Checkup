@@ -1,0 +1,173 @@
+{
+  "Records": [
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLE123",
+        "arn": "arn:aws:iam::123456789012:user/compromised-user",
+        "accountId": "123456789012",
+        "userName": "compromised-user"
+      },
+      "eventTime": "2026-02-03T09:00:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListUsers",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "requestParameters": null,
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLE123",
+        "arn": "arn:aws:iam::123456789012:user/compromised-user",
+        "accountId": "123456789012",
+        "userName": "compromised-user"
+      },
+      "eventTime": "2026-02-03T09:00:30Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListRoles",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "requestParameters": null,
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLE123",
+        "arn": "arn:aws:iam::123456789012:user/compromised-user",
+        "accountId": "123456789012",
+        "userName": "compromised-user"
+      },
+      "eventTime": "2026-02-03T09:01:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "ListPolicies",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "requestParameters": null,
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLE123",
+        "arn": "arn:aws:iam::123456789012:user/compromised-user",
+        "accountId": "123456789012",
+        "userName": "compromised-user"
+      },
+      "eventTime": "2026-02-03T09:02:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "errorCode": "AccessDenied",
+      "errorMessage": "User: arn:aws:iam::123456789012:user/compromised-user is not authorized",
+      "requestParameters": {
+        "userName": "admin"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "IAMUser",
+        "principalId": "AIDAEXAMPLE123",
+        "arn": "arn:aws:iam::123456789012:user/compromised-user",
+        "accountId": "123456789012",
+        "userName": "compromised-user"
+      },
+      "eventTime": "2026-02-03T09:03:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachUserPolicy",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "203.0.113.50",
+      "userAgent": "aws-cli/2.15.0",
+      "errorCode": "AccessDenied",
+      "errorMessage": "User: arn:aws:iam::123456789012:user/compromised-user is not authorized",
+      "requestParameters": {
+        "userName": "compromised-user",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLE456:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/LambdaExecutionRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T09:10:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "AttachRolePolicy",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "roleName": "LambdaExecutionRole",
+        "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      },
+      "responseElements": null
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLE456:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/LambdaExecutionRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T09:11:00Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateUser",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "userName": "backdoor-admin"
+      },
+      "responseElements": {
+        "user": {
+          "userName": "backdoor-admin",
+          "userId": "AIDABACKDOOR789",
+          "arn": "arn:aws:iam::123456789012:user/backdoor-admin"
+        }
+      }
+    },
+    {
+      "eventVersion": "1.08",
+      "userIdentity": {
+        "type": "AssumedRole",
+        "principalId": "AROAEXAMPLE456:attacker-session",
+        "arn": "arn:aws:sts::123456789012:assumed-role/LambdaExecutionRole/attacker-session",
+        "accountId": "123456789012"
+      },
+      "eventTime": "2026-02-03T09:11:30Z",
+      "eventSource": "iam.amazonaws.com",
+      "eventName": "CreateAccessKey",
+      "awsRegion": "us-east-1",
+      "sourceIPAddress": "198.51.100.25",
+      "userAgent": "Boto3/1.34.0",
+      "requestParameters": {
+        "userName": "backdoor-admin"
+      },
+      "responseElements": {
+        "accessKey": {
+          "userName": "backdoor-admin",
+          "accessKeyId": "AKIAIOSFODNN7EXAMPLE",
+          "status": "Active"
+        }
+      }
+    }
+  ]
+}

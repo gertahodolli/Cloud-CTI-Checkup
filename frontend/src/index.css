@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design Tokens - Enterprise Security Dark Theme */
+:root {
+  /* Background colors */
+  --bg-primary: #0E1117;
+  --bg-secondary: #0B0F14;
+  --bg-card: #121826;
+  --bg-card-hover: #1a2233;
+  
+  /* Text colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  
+  /* Border colors */
+  --border-subtle: #1E293B;
+  --border-default: #334155;
+  
+  /* Accent colors */
+  --accent-yellow: #F59E0B;
+  --accent-amber: #FBBF24;
+  
+  /* Severity colors */
+  --severity-critical: #EF4444;
+  --severity-high: #F97316;
+  --severity-medium: #EAB308;
+  --severity-low: #3B82F6;
+  --severity-info: #6B7280;
+  
+  /* Status colors */
+  --status-success: #22C55E;
+  --status-warning: #F59E0B;
+  --status-error: #EF4444;
+  
+  /* Glow effects */
+  --glow-critical: rgba(239, 68, 68, 0.2);
+  --glow-high: rgba(249, 115, 22, 0.2);
+  --glow-medium: rgba(234, 179, 8, 0.2);
+  --glow-low: rgba(59, 130, 246, 0.2);
+  --glow-accent: rgba(245, 158, 11, 0.15);
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Utility classes for design tokens */
+.bg-card {
+  background-color: var(--bg-card);
+}
+
+.bg-card-hover:hover {
+  background-color: var(--bg-card-hover);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+
+/* Severity badges */
+.severity-critical {
+  color: var(--severity-critical);
+  background-color: var(--glow-critical);
+}
+
+.severity-high {
+  color: var(--severity-high);
+  background-color: var(--glow-high);
+}
+
+.severity-medium {
+  color: var(--severity-medium);
+  background-color: var(--glow-medium);
+}
+
+.severity-low {
+  color: var(--severity-low);
+  background-color: var(--glow-low);
+}
+
+/* Card glow effects */
+.glow-critical {
+  box-shadow: 0 0 20px var(--glow-critical), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-high {
+  box-shadow: 0 0 20px var(--glow-high), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-medium {
+  box-shadow: 0 0 20px var(--glow-medium), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-low {
+  box-shadow: 0 0 20px var(--glow-low), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-accent {
+  box-shadow: 0 0 30px var(--glow-accent), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Animation for subtle interactions */
+.transition-glow {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.transition-glow:hover {
+  transform: translateY(-1px);
+}

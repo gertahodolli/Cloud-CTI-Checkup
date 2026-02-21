@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ScanResult",
+  "type": "object",
+  "required": ["provider", "regions", "checks", "findings", "summary", "partial_failure", "fatal_error"],
+  "properties": {
+    "provider": { "type": "string" },
+    "account_id": { "type": ["string", "null"] },
+    "regions": { "type": "array", "items": { "type": "string" } },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "status": { "type": "string", "enum": ["ok", "finding", "skipped", "error"] },
+          "message": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["service", "resource_type", "resource_id", "issue", "severity", "status", "evidence"],
+        "properties": {
+          "finding_id": { "type": ["string", "null"] },
+          "service": { "type": "string" },
+          "region": { "type": ["string", "null"] },
+          "resource_type": { "type": "string" },
+          "resource_id": { "type": "string" },
+          "issue": { "type": "string" },
+          "severity": { "type": "string", "enum": ["high", "medium", "low", "info"] },
+          "status": { "type": "string", "enum": ["ok", "finding", "skipped", "error"] },
+          "evidence": { "type": "object" },
+          "remediation": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["high", "medium", "low", "info", "skipped", "errors"],
+      "properties": {
+        "high": { "type": "integer" },
+        "medium": { "type": "integer" },
+        "low": { "type": "integer" },
+        "info": { "type": "integer" },
+        "skipped": { "type": "integer" },
+        "errors": { "type": "integer" }
+      }
+    },
+    "partial_failure": { "type": "boolean" },
+    "fatal_error": { "type": "boolean" },
+    "risk_score": { "type": ["integer", "null"] },
+    "risk_score_explanation": {
+      "type": ["object", "null"],
+      "properties": {
+        "cap": { "type": "integer" },
+        "weights": { "type": "object" },
+        "counts": { "type": "object" },
+        "contribution": { "type": "object" }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "privilege_escalation",
+  "description": "Scenario simulating privilege escalation attempt with IAM policy changes",
+  "events_file": "privilege_escalation_events.json",
+  "expected": {
+    "min_actors": 1,
+    "expected_sequences": ["privilege_escalation", "discovery"],
+    "expected_events": ["AttachRolePolicy", "ListRoles", "ListUsers"]
+  }
+}

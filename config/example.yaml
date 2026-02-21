@@ -1,0 +1,208 @@
+aws:
+  regions: ${AWS_REGIONS}
+  enabled_services: ${AWS_ENABLED_SERVICES}
+
+checks:
+  iam:
+    max_access_key_age_days: ${IAM_MAX_KEY_AGE_DAYS}
+    max_access_key_unused_days: ${IAM_MAX_KEY_UNUSED_DAYS}
+    check_root_mfa: ${IAM_CHECK_ROOT_MFA}
+    detect_admin_policies: ${IAM_DETECT_ADMIN_POLICIES}
+    detect_risky_policies: ${IAM_DETECT_RISKY_POLICIES}
+    detect_allow_not_action: ${IAM_DETECT_ALLOW_NOT_ACTION}
+    detect_allow_not_resource: ${IAM_DETECT_ALLOW_NOT_RESOURCE}
+    privilege_escalation_actions: ${IAM_PRIVILEGE_ESCALATION_ACTIONS}
+    identity_profile:
+      enabled: ${IAM_IDENTITY_PROFILE_ENABLED}
+      scoring:
+        weights:
+          no_mfa: ${IAM_IDENTITY_PROFILE_WEIGHT_NO_MFA}
+          old_keys: ${IAM_IDENTITY_PROFILE_WEIGHT_OLD_KEYS}
+          admin_policies: ${IAM_IDENTITY_PROFILE_WEIGHT_ADMIN_POLICIES}
+          risky_policies: ${IAM_IDENTITY_PROFILE_WEIGHT_RISKY_POLICIES}
+      include_users: ${IAM_IDENTITY_PROFILE_INCLUDE_USERS}
+      include_roles: ${IAM_IDENTITY_PROFILE_INCLUDE_ROLES}
+      top_n: ${IAM_IDENTITY_PROFILE_TOP_N}
+
+  ec2:
+    sensitive_ports: ${EC2_SENSITIVE_PORTS}
+    allowed_cidrs: ${EC2_ALLOWED_CIDRS}
+    check_unused_security_groups: ${EC2_CHECK_UNUSED_SECURITY_GROUPS}
+
+  s3:
+    require_default_encryption: ${S3_REQUIRE_DEFAULT_ENCRYPTION}
+    allowed_sse_algorithms: ${S3_ALLOWED_SSE_ALGORITHMS}
+    check_versioning: ${S3_CHECK_VERSIONING}
+    check_server_access_logging: ${S3_CHECK_SERVER_ACCESS_LOGGING}
+
+intel:
+  timeout_seconds: ${CTICHECKUP_INTEL_TIMEOUT_SECONDS}
+  retry:
+    max_attempts: ${CTICHECKUP_INTEL_RETRY_MAX_ATTEMPTS}
+    backoff_seconds: ${CTICHECKUP_INTEL_RETRY_BACKOFF_SECONDS}
+  abuseipdb:
+    base_url: ${CTICHECKUP_ABUSEIPDB_BASE_URL}
+  ipinfo:
+    base_url: ${CTICHECKUP_IPINFO_BASE_URL}
+  cloud_attribution:
+    enabled: ${CTICHECKUP_CLOUD_ATTRIBUTION_ENABLED}
+    providers:
+      aws:
+        asn_numbers: ${CTICHECKUP_CLOUD_ATTRIBUTION_AWS_ASNS}
+        org_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_AWS_ORG_CONTAINS}
+        hostname_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_AWS_HOSTNAME_CONTAINS}
+      azure:
+        asn_numbers: ${CTICHECKUP_CLOUD_ATTRIBUTION_AZURE_ASNS}
+        org_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_AZURE_ORG_CONTAINS}
+        hostname_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_AZURE_HOSTNAME_CONTAINS}
+      gcp:
+        asn_numbers: ${CTICHECKUP_CLOUD_ATTRIBUTION_GCP_ASNS}
+        org_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_GCP_ORG_CONTAINS}
+        hostname_contains: ${CTICHECKUP_CLOUD_ATTRIBUTION_GCP_HOSTNAME_CONTAINS}
+    confidence_weights:
+      asn_match: ${CTICHECKUP_CLOUD_ATTRIBUTION_WEIGHT_ASN_MATCH}
+      org_match: ${CTICHECKUP_CLOUD_ATTRIBUTION_WEIGHT_ORG_MATCH}
+      hostname_match: ${CTICHECKUP_CLOUD_ATTRIBUTION_WEIGHT_HOSTNAME_MATCH}
+      privacy_hosting: ${CTICHECKUP_CLOUD_ATTRIBUTION_WEIGHT_PRIVACY_HOSTING}
+  correlation:
+    cloudtrail:
+      enabled: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_ENABLED}
+      ip_field: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_IP_FIELD}
+      ua_field: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_UA_FIELD}
+      identity_field: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_IDENTITY_FIELD}
+      event_name_field: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_EVENT_NAME_FIELD}
+      max_events: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_MAX_EVENTS}
+      max_indicators: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_MAX_INDICATORS}
+      scoring:
+        weights:
+          event_count: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_WEIGHT_EVENT_COUNT}
+          unique_event_count: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_WEIGHT_UNIQUE_EVENT_COUNT}
+          abuse_confidence: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_WEIGHT_ABUSE_CONFIDENCE}
+          hosting: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_WEIGHT_HOSTING}
+          intel_risk_score: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_WEIGHT_INTEL_RISK_SCORE}
+        rules:
+          - field: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_FIELD}
+            match: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_MATCH}
+            value: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_VALUE}
+            score: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_SCORE}
+            per_event: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_PER_EVENT}
+            case_sensitive: ${CTICHECKUP_CORRELATION_CLOUDTRAIL_RULE_CASE_SENSITIVE}
+
+export:
+  detections:
+    enabled: ${CTICHECKUP_EXPORT_DETECTIONS_ENABLED}
+    formats:
+      enabled: ${CTICHECKUP_EXPORT_DETECTIONS_FORMATS_ENABLED}
+    templates_dir: ${CTICHECKUP_EXPORT_DETECTIONS_TEMPLATES_DIR}
+    cloudtrail:
+      min_actor_score: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_MIN_ACTOR_SCORE}
+      mode: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_MODE}
+    iam:
+      min_identity_score: ${CTICHECKUP_EXPORT_DETECTIONS_IAM_MIN_IDENTITY_SCORE}
+    mappings:
+      aws_scan:
+        by_check_id:
+          AWS_S3_PUBLIC:
+            template: ${CTICHECKUP_EXPORT_DETECTIONS_AWS_S3_PUBLIC_TEMPLATE}
+            fields:
+              event_source: ${CTICHECKUP_EXPORT_DETECTIONS_AWS_S3_PUBLIC_EVENT_SOURCE}
+            filter_fields: ${CTICHECKUP_EXPORT_DETECTIONS_AWS_S3_PUBLIC_FILTER_FIELDS}
+            defaults: ${CTICHECKUP_EXPORT_DETECTIONS_AWS_S3_PUBLIC_DEFAULTS}
+      cloudtrail_correlation:
+        actor_rule:
+          template: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_TEMPLATE}
+          fields:
+            ip_field: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_IP_FIELD}
+            ua_field: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_UA_FIELD}
+            identity_field: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_IDENTITY_FIELD}
+            event_names_field: ${CTICHECKUP_EXPORT_DETECTIONS_CLOUDTRAIL_EVENT_NAMES_FIELD}
+      iam_identities:
+        identity_rule:
+          template: ${CTICHECKUP_EXPORT_DETECTIONS_IAM_TEMPLATE}
+          fields:
+            identity_field: ${CTICHECKUP_EXPORT_DETECTIONS_IAM_IDENTITY_FIELD}
+            risk_factors_field: ${CTICHECKUP_EXPORT_DETECTIONS_IAM_RISK_FACTORS_FIELD}
+
+risk_scoring:
+  cap: ${CTICHECKUP_RISK_SCORE_CAP}
+  weights:
+    critical: ${CTICHECKUP_RISK_WEIGHT_CRITICAL}
+    high: ${CTICHECKUP_RISK_WEIGHT_HIGH}
+    medium: ${CTICHECKUP_RISK_WEIGHT_MEDIUM}
+    low: ${CTICHECKUP_RISK_WEIGHT_LOW}
+    info: ${CTICHECKUP_RISK_WEIGHT_INFO}
+
+# AI-assisted analysis configuration
+ai:
+  # Enable/disable AI features (required to use ai commands)
+  enabled: ${CTICHECKUP_AI_ENABLED}
+
+  # AI provider: openai, azure_openai, or none
+  provider: ${CTICHECKUP_AI_PROVIDER}
+
+  # Model to use (e.g., gpt-4o, gpt-4-turbo, gpt-3.5-turbo)
+  model: ${CTICHECKUP_AI_MODEL}
+
+  # API base URL (for OpenAI: https://api.openai.com/v1)
+  base_url: ${CTICHECKUP_AI_BASE_URL}
+
+  # Request timeout in seconds
+  timeout_seconds: ${CTICHECKUP_AI_TIMEOUT_SECONDS}
+
+  # Model temperature (0.0-1.0, lower = more deterministic)
+  temperature: ${CTICHECKUP_AI_TEMPERATURE}
+
+  # Maximum tokens in response
+  max_tokens: ${CTICHECKUP_AI_MAX_TOKENS}
+
+  # Maximum input events to process (for cost/latency control)
+  max_input_events: ${CTICHECKUP_AI_MAX_INPUT_EVENTS}
+
+  # Azure OpenAI specific settings
+  azure_deployment: ${CTICHECKUP_AI_AZURE_DEPLOYMENT}
+  azure_api_version: ${CTICHECKUP_AI_AZURE_API_VERSION}
+
+  # CloudTrail summarization settings
+  summarize:
+    cloudtrail:
+      # Number of top actors to include in evidence bundle
+      top_n_actors: ${CTICHECKUP_AI_SUMMARIZE_CLOUDTRAIL_TOP_N_ACTORS}
+      # Number of top events to include in evidence bundle
+      top_n_events: ${CTICHECKUP_AI_SUMMARIZE_CLOUDTRAIL_TOP_N_EVENTS}
+      # Maximum resources to include in evidence bundle
+      max_resources: ${CTICHECKUP_AI_SUMMARIZE_CLOUDTRAIL_MAX_RESOURCES}
+
+  # Redaction settings (mask sensitive data before sending to AI)
+  redaction:
+    enabled: ${CTICHECKUP_AI_REDACTION_ENABLED}
+    fields: ${CTICHECKUP_AI_REDACTION_FIELDS}
+
+  # Optional: custom prompt templates directory
+  prompt_templates_dir: ${CTICHECKUP_AI_PROMPT_TEMPLATES_DIR}
+
+  # Reproducibility: optional seed for deterministic AI outputs (provider-dependent)
+  seed: ${CTICHECKUP_AI_SEED}
+
+# Evaluation harness configuration
+eval:
+  enabled: ${CTICHECKUP_EVAL_ENABLED}
+
+  # Directory containing scenario definitions
+  scenarios_dir: ${CTICHECKUP_EVAL_SCENARIOS_DIR}
+
+  # Metrics thresholds (no hardcoded pass/fail)
+  metrics:
+    # Minimum grounding score (0-100)
+    grounding_min_score: ${CTICHECKUP_EVAL_GROUNDING_MIN_SCORE}
+
+    # Maximum allowed hallucinations before penalty
+    hallucination_max_count: ${CTICHECKUP_EVAL_HALLUCINATION_MAX_COUNT}
+
+    # Required sections in AI output
+    required_sections: ${CTICHECKUP_EVAL_REQUIRED_SECTIONS}
+
+    # Weights for overall score calculation
+    weight_grounding: ${CTICHECKUP_EVAL_WEIGHT_GROUNDING}
+    weight_hallucination: ${CTICHECKUP_EVAL_WEIGHT_HALLUCINATION}
+    weight_completeness: ${CTICHECKUP_EVAL_WEIGHT_COMPLETENESS}
+    weight_injection: ${CTICHECKUP_EVAL_WEIGHT_INJECTION}
