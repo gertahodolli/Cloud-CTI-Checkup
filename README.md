@@ -168,6 +168,25 @@ Exit codes: `0` success, `1` error, `2` partial success, `3` findings detected (
 pip install -e ".[dev]"
 python -m pytest tests/ -v
 ```
+## Results
+
+Below are sample outputs from the Web UI after running an AWS security scan, CloudTrail analysis, and threat intelligence lookups.
+
+**Security Dashboard**
+
+<img width="1919" height="1079" alt="Image" src="https://github.com/user-attachments/assets/df234090-f474-4c60-a154-6779baed587f" />
+
+**Findings**
+
+<img width="1031" height="404" alt="Image" src="https://github.com/user-attachments/assets/ce2e9cda-2acd-4200-83f9-298ed4a0c43e" />
+
+**CloudTrail Analysis**
+
+<img width="1041" height="691" alt="Image" src="https://github.com/user-attachments/assets/2c83625d-8ab2-4c3b-b0b5-c3e5b65a75cf" />
+
+**Threat Intelligence**
+
+<img width="1024" height="580" alt="Image" src="https://github.com/user-attachments/assets/28ac793a-41cf-4589-b677-39f5b6efb244" />
 
 ## License
 
